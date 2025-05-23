@@ -1,0 +1,187 @@
+\documentclass[10pt, letterpaper]{article}
+%Graphic and Diagram Setup
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[all]{xy}
+
+%Inserting Graphics
+%An example of the use of this command is
+% \begin{minipage}{4in}
+%   \Fig{filename}
+% \end{minipage}
+\newcommand{\Fig}[1]{\includegraphics[width=0.5\textwidth]{#1}}
+
+%Math Symbol Setup
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+%Math Fonts
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+
+%Absolute Value and Norm Notation
+\newcommand{\abs}[1]{\left \lvert #1 \right \rvert}
+\newcommand{\norm}[1]{\left \lVert #1 \right \rVert}
+
+%Kernel of a map
+\renewcommand{\ker}{\operatorname{Ker}}
+
+%Lie Algebra of a Lie Group
+\newcommand{\lie}[1]{\operatorname{Lie}(#1)}
+
+%Fields and Blackboard Letters
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\A}{\mathbb{A}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+%Theorems and Definitions
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{cor}{Corollary}
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+
+%Fancy Header Setup
+\usepackage{fancyhdr}
+\fancyhf{}
+\pagestyle{fancy}
+\lhead{}
+\chead{\bfseries Computability}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.1pt}
+
+%Double Space
+\usepackage{setspace}
+\linespread{1.6}
+
+%Document Content
+\begin{document}
+
+Let's begin with a definition:
+
+\begin{defn}
+	A function $f: \N_0 \rightarrow \N_0$ is said to be computable if there exists an algorithm $M$ that computes $f$. The algorithm $M$:
+	\begin{enumerate}
+		\item[(a)]  halts on the input $n$ and outputs $f(n)$ when $f$ is defined for an $n \in \N_0$.
+		\item[(b)] does not halt on the input $n$ whenever $f$ is undefined for $n \in \N_0$.
+	\end{enumerate}
+\end{defn}
+
+\begin{proof}(Not Really) \\
+Let $f: \N_0 \rightarrow \N_0$ be a partial computable function. Extend $f$ to a total function
+\[
+	f(n) = \begin{cases}
+		f(n) &\text{ if } n \in \operatorname{Dom} f \\
+		0 & \text { otherwise}\\
+	\end{cases}
+\]
+
+The algorithm $M$ does not halt on $n \notin \operatorname{Dom} f$. However, $M$ is the only things we have to decide if $f(n)$ is defined. How do we know when to halt $M$ and output $g(n) = 0$?
+\end{proof}
+
+\subsection*{Decidable Sets}
+
+\begin{defn}
+	A set $X \subseteq \N_0$ is said to be decidable if there exists an algorithm $M$ that determines if $n \in \N_0$ belongs to $X$
+\end{defn}
+
+\noindent \textbf{Q: } What does this mean? \\
+
+\noindent \textbf{A: } The characteristic function for $X$ 
+\[
+	\chi_X(n) = \begin{cases}
+		1 & \text{ if } n \in X \\
+		0 & \text{ otherwise } \\
+	\end{cases}
+\]
+is computable.
+
+\begin{rem}
+	\item[(a)] Any finite set is decidable. We can make an algorithm that outputs 1 on a finite number of elements.
+	\item[(b)] The collection of decidable sets is closed under intersection, union, and set difference.
+\end{rem}
+
+\subsection*{Enumerable Sets}
+
+Any set that satisfies any of the following equivalent conditions is said to be \emph{enumerable}.
+
+\begin{prop}
+	Let $X \subseteq \N_0$. TFAE:
+	\begin{enumerate}
+		\item[(a)] There exists an algorithm $M$ that outputs the elements of $X$ and only those elements.
+		\item[(b)] $X$ is the domain of a computable function.
+		\item[(c)] $X$ is the range of a computable function.
+		\item[(d)] The semicharacteristic function for $X$
+		\[
+			f_X(n) = \begin{cases}
+				0 &\text{ if } n \in X \\
+				\text{ undefined } &\text{ otherwise } \\
+			\end{cases}
+		\]
+	\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	(a) $\Rightarrow$ (b,d) Suppose that $X$ is enumerated by an algorithm $M$. Then we can compute the semicharacteristic function for $X$:
+		\begin{enumerate}
+			\item[(i)] Execute $M$ until $n$ is printed.
+			\item[(ii)] Output 0 and terminate.
+		\end{enumerate}
+		
+	(c) $\Rightarrow$ (b) Suppose $X$ is in the domain of a computable function $f$ and $N$ is the algorithm that computes $f$. We'll run $N$ in parallel on 0, 1, 2, $\ldots$ gradually increasing the number of involved inputs:
+		\begin{enumerate}
+			\item[(i)] Run one step of $N$ on 0 and 1.
+			\item[(ii)] Run two steps of $N$ on 0, 1, and 2.
+			\item[(iii)] Run three steps of $N$ on each input 0, 1, 2, and 3.
+		\end{enumerate}
+		All arguments on which $N$ terminates are printed out as soon as they are detected. We avoid having $N$ go into an infinite loop on an undefined element $n \in \N_0$ by only performing a finite number of steps from the algorithm $N$ each time. We can modify this algorithm to print the results returned rather than the arguments where it terminates to prove the converse (b) $\Rightarrow$ (c).
+
+(b) $\Rightarrow$ (c) We've seen that $X$ is the domain of a computable function. This function is computed by an algorithm $N$. Define
+\[
+	b(x) = \begin{cases}
+		x &\text{ if } M \text{ terminates on } X \\
+		\text{ undefine } & \text{ otherwise } \\
+	\end{cases}
+\]
+\end{proof}
+
+\begin{defn}
+	A set $X \subseteq \N_0$ is enumerable if either:
+	\begin{enumerate}
+		\item[(i)] $X = \varnothing$
+		\item[(ii)] $X$ is in the range of a total computable function.
+	\end{enumerate}
+\end{defn}
+
+This definition turns out to be equivalent to all of the others. Suppose $X$ is enumerated by an algorithm $M$. Let $x_0 \in X$ be arbitrary. Define the total function
+\[
+	a(n) = \begin{cases}
+		t & \text{ if } M \text{ returns $t$ at the $n^{\text{th}}$ step} \\
+		x_0 & \text{ otherwise } \\
+	\end{cases}
+\]
+
+\noindent The function $a(n)$ has $X$ in its range and is computable by its definition. Hence, $X$ is enumerable.
+
+\begin{thm}
+	The intersection and union of enumerable sets is enumrable.
+\end{thm}
+
+\begin{rem}
+	The complement of an enumerable set may not be enumerable.
+\end{rem}
+\end{document}

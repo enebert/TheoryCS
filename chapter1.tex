@@ -184,4 +184,84 @@ This definition turns out to be equivalent to all of the others. Suppose $X$ is 
 \begin{rem}
 	The complement of an enumerable set may not be enumerable.
 \end{rem}
+
+\subsection*{Enumerable \& Decidable Sets}
+
+\begin{thm}[Post]
+	Any decidable set of $\N_0$ is enumerable. If a set $A$ and its complement $\N_0 \setminus A$ are enumerable, then A is enumerable.
+\end{thm}
+
+\begin{proof}
+	Suppose $X \subseteq \N_0$ is decidable. Then the characteristic function is computable. If $\chi_X(n)=1$, then we output $n$.
+	Hence, we have an algorithm that will output exactly the elements of $X$.
+
+	"$\Rightarrow$" Suppose $X$ and $X^c$ are enumerable. Then we can run two algorithms in parallel to determine if an element is in $A$ or $A^c$.
+	We conclude that the characteristic function is computable.
+
+	"$\Leftarrow$" Suppose $X$ is decidable. We've seen that $X$ is enumerable. Let $M$ be the algorithm that outputs the 
+	elements of $X$. If $M$ outputs 0, print $n$. We conclude that there is an algorithm that enumerates $A^c$.
+\end{proof}
+
+\begin{rem}
+	We use $\pi_1 \text{ and } \pi_2$ to be the usual projections:
+	\begin{align*}
+		\pi_1: A \times B & \rightarrow A \text{ where } \pi_1(a,b) = a \\
+		\pi_2: A \times B & \rightarrow B \text { where } \pi_2(a,b) = b \\
+	\end{align*}
+\end{rem}
+
+\begin{thm}
+	A set $Y \subseteq \N_0$ is enumerable if and only if $Y$ is the projection of a decidable set $Q \subseteq \N_0 \times \N_0$.
+\end{thm}
+
+\begin{proof}
+	"$\Rightarrow$" Suppose $Y$ is enumerable. Then there exists an algorithm $M$ which outputs the elements of $Y$. Let
+	\[
+		Q = \{(y,n) \mid y \in Y \text{ and output after $n$ steps}
+	\]
+	We can always decide if $(y_0, n_0) \in Q$ by running $M$ and therefore $Q$ is decidable. By the definition of $Q$
+	$\pi_1(Q) = Y$.
+
+	"$\Leftarrow$" Suppose $Y$ is the projection of $Q \subseteq \N_0 \times \N_0$ which is decidable. Hence $\pi_1(Q)$ is also decidable
+	and therefore $\pi_1(Q)$ is enumerable by Post's theorem.
+\end{proof}
+
+\subsection*{Enumerability \& Computability}
+
+\begin{thm}
+	A function $f: \N_0 \rightarrow \N_0$ is computable if and only if it graph 
+	\[
+		F = \{(x,y) \mid f(x) \text{ is defined and } f(x) = y \}
+	\]
+	is enumerable.
+\end{thm}
+
+\begin{proof}
+	"$\Rightarrow$" Suppose that $f$ is computable. Then there exists an enumeration for its domain. By also outputting the value $f(x)$ we get
+	an algorithm that enumerates $F$.
+
+	"$\Leftarrow$" Suppose that $F$ is enumerable. Let $M$ be the algorithm that outputs $F$. Then 
+	\begin{enumerate}
+		\item[] \textbf{Input: } $n \in \N_0$
+		\begin{enumerate}
+			\item[(i)] Run $M$ until it outputs $(n, f(n))$.
+			\item[(ii)] Output $f(n)$
+			\item[(iii)] Terminate the computation.  
+		\end{enumerate}
+	\end{enumerate}
+\end{proof}
+
+\begin{thm}
+	The image and preimage of an enumerable set under a computable function are enumerable.
+\end{thm}
+
+\begin{proof}
+	Suppose that $f: \N_0 \rightarrow \N_0$ is computable with $X \subseteq \N_0$ enumerable and $M$ the algorithm that outputs $X$.
+Then 
+	\begin{align*}
+		f^{-1}(X) &= \{a \in \N_0 \mid f(a) \in X\} \\
+				  &= \pi_1[(\N_0 \times X) \cap F]
+	\end{align*}
+which is the projection of a decidable set.
+\end{proof}
 \end{document}

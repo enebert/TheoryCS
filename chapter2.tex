@@ -1,0 +1,288 @@
+\documentclass[10pt, letterpaper]{article}
+%Graphic and Diagram Setup
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[all]{xy}
+
+%Inserting Graphics
+%An example of the use of this command is
+% \begin{minipage}{4in}
+%   \Fig{filename}
+% \end{minipage}
+\newcommand{\Fig}[1]{\includegraphics[width=0.5\textwidth]{#1}}
+
+%Math Symbol Setup
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+%Math Fonts
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+
+%Absolute Value and Norm Notation
+\newcommand{\abs}[1]{\left \lvert #1 \right \rvert}
+\newcommand{\norm}[1]{\left \lVert #1 \right \rVert}
+
+%Kernel of a map
+\renewcommand{\ker}{\operatorname{Ker}}
+
+%Lie Algebra of a Lie Group
+\newcommand{\lie}[1]{\operatorname{Lie}(#1)}
+
+%Fields and Blackboard Letters
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\A}{\mathbb{A}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+%Theorems and Definitions
+\newtheorem{thm}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{cor}{Corollary}
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+
+%Fancy Header Setup
+\usepackage{fancyhdr}
+\fancyhf{}
+\pagestyle{fancy}
+\lhead{}
+\chead{Universal Functions \& Undecidability}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.1pt}
+
+%Double Space
+\usepackage{setspace}
+\linespread{1.6}
+
+%Document Content
+\begin{document}
+    \section*{Universal Functions \& Undecidability}
+
+    \textbf{Goal: } Construct a set that is enumerable but not decidable.
+
+    \begin{defn}
+        A function $U:\N_0 \times \N_0 \rightarrow \N_0$ is said to be universal for th class of all computable functions of one 
+        variable if:
+        \begin{enumerate}
+            \item [(a)] For any $n$, the function $U_n(x) = U(n,x)$ is computable. That is the sections of $U$ are computable.
+            \item [(b)] all computable functions of one variable occur among the sections $U_n$.
+        \end{enumerate}
+    \end{defn}
+
+    \begin{rem}
+        Be reminded that it is possible that the $U$ and the $U_n$ are partially defined.
+    \end{rem}
+
+    \begin{thm}
+        There exists a binary computable function universal for the class of unary computable functions.
+    \end{thm}
+
+    \begin{proof}
+        Let's organize the class of computable unary functions into a computable sequence
+        \[
+            \{p_0, p_1, p_2, \ldots \}
+        \]
+        ascending by "length".
+
+        We set $U(i,x)$ to be the output of the $i^{\text{th}}$ program run on the input $x$. Then the function $U$
+        is just the desired computable function computed by the unary functions $p_i$.
+    \end{proof}
+
+    \begin{rem}
+        A universal function can simulate any computable function on an input $x$.
+    \end{rem}
+
+    \begin{defn}
+        A set $W \subseteq \N_0 \times \N_0$ is called a universal set for a certain class of sets of natural numbers, if all the sections 
+        \[
+            W_n = \{x \mid (n,x) \in W \}
+        \]
+        of the set $W$ belong to the class and there are no other sets in that class.
+    \end{defn}
+
+    \begin{thm}
+        There exists an enumerable set in $\N_0 \times \N_0$ for the class of all enumerable sets of natural numbers.
+    \end{thm}
+
+    \begin{proof}
+        Consider the domain of a universal function. It is a universal enumerable set as it satisfies one of the equivalent 
+        definitions of enumerable. The sections $U_n$ are then also enumerable for any fixed $n$ by the same argument.
+    \end{proof}
+
+    \subsection*{Diagonal Constructon}
+
+    \textbf{Q: } We can construct a computable universal function for the class of all computable functions in one variable.
+    Can we do the same for the class of all total computable unary functions?
+
+    \begin{thm}
+        There is no total computable function of two variables universal to the class of all total computable functions 
+        of one variable.
+    \end{thm}
+
+    \begin{proof}
+        Let $U$ be an arbitrary total computable function of two variables. Consider the diagonal function $u(n) = U(n,n)$.
+        The functions $u(n)$ and $d(n) = u(n)+1$ differ. The function $d(n)$ differs from all of the sections $U_n$. We conclude
+        that the function $U$ is not universal.
+    \end{proof}
+
+    \begin{rem}
+        The difference between have a general computable function and a total function? A general computable function is 
+        potentially partially defined. It is possible that $d(n) = U(n,n) + 1$ and $u(n)$ have the same "value when undefined.
+    \end{rem}
+
+    \begin{thm}
+        There exists a computable function $d$ such that no computable function $f:\N_0 \rightarrow \N_0$ can differ from it 
+        everywhere.
+    \end{thm}
+
+    \begin{rem}
+        There exists some $n \in \N_0$ such that either $f(n) = d(n)$ or both are undefined.
+    \end{rem}
+
+    \begin{proof}
+        Let $U$ be a universal function for the class of computable functions. Any computable function $f$ coincides 
+        with $U_n$ for a certain $n$. So we should take $d(n)$ to be $f(n) = U_n(n) = U(n,n)$.
+    \end{proof}
+
+    \begin{thm}
+        There exists a computable function that has no total computable extension.
+    \end{thm}
+
+    \begin{proof}
+        From the previous theorem, we defined $d(n) = U_n(n)$ and saw that it is a computable function that shares a value 
+        with any other computable function. Here we define $\hat{d}(n) = d(n) + 1$. Let $\bar{d}$ be some total extension of $\hat{d}$.
+        Note the following:
+        \begin{align*}
+            d(n) \text{ defined } & \Rightarrow \hat{d}(n) = d(n)+1 \text{ defined } \\
+                                  & = \bar{d}(n) \\
+                                  & \neq d(n)
+        \end{align*}
+        and if $d(n)$ is undefined then $d(n) \neq \bar{d}(n)$ because $\bar{d}$ is total. We conclude that $\bar{d}$ differs 
+        from $d$ everywhere. From the previous theorem $\bar{d}$ cannot be computable.
+    \end{proof}
+
+    \subsection*{Enumerable Undecidable Set}
+
+    We fulfill our goal of finding an enumerable undecidable set. recall that we need to obtain an enumerable set 
+    with a complement that is not enumerable.
+
+    \begin{thm}
+        There exists an enumerable undecidable set in $\N_0$.
+    \end{thm}
+
+    \begin{proof}
+        Let $f:\N_0 \rightarrow \N_0$ be a computable function that has no total computable extension. Since $f$ is 
+        computable we know that $\operatorname{Dom} f$ is enumerable. If $\operatorname{Dom} f$ were decidable then the 
+        characteristic function would be computable and therefore
+        g(x) = \[
+            \begin{cases}
+                f(x) & \text{ if } x \in \operatorname{Dom} f \\
+                0 & \text{ if } x \notin \operatorname{Dom} f \\
+            \end{cases}
+        \]
+        would be computable which is a total extension of $f$. This is a contradicition to our assumption that $f$ has no 
+        total computable extension. We conclude that $\operatorname{Dom} f$ is undecidable.
+    \end{proof}
+
+    \begin{cor}[Halting Problem]
+        The decision problem: For a given algorithm $M$ decide if $M$ halts on $x$ is undecidable.
+    \end{cor}
+
+    \begin{rem}
+        this is a rephrasing of: The domain of the function $U$ is also an enumerable undecidable st of pairs.
+    \end{rem}
+
+    \subsection*{Enumerable Inseperable Sets}
+
+    \begin{thm}
+        There exists a computable function that takes only the values of 0 and 1 and has no total computable extension.
+    \end{thm}
+
+    \begin{proof}
+        Consider the function 
+        \[
+            d'(x) = \begin{cases}
+                1 &\text{ if } d(x) = 0 \\
+                0 &\text{ if } d(x) > 0 \\
+                undef &\text{ if } d(x) \text{ is undefined} \\
+            \end{cases}
+        \]
+
+        where $d(x)$ is a computable function that shares a value with any other computable function. Any total 
+        extension of $d'$ will differ from $d$ everywhere and therefore not computable. (?)
+    \end{proof}
+
+    \subsection*{Simple Sets: The Post Construction}
+
+    \textbf{Goal: } E. Post's constructon of an enumerable undecidable set. 
+
+    \begin{defn}
+        \begin{enumerate}
+            \item A set is said to be immune if it is infinite but does not contain infinitely many enumerable subsets.
+            \item An enumerable set is said to be simple if its complement is immune.
+        \end{enumerate}
+    \end{defn}
+
+    \begin{defn}
+        We say that a set $C$ separates two disjoint sets $X$ and $Y$ if $C$ contains one of them and has empty intersection 
+        with the other.
+    \end{defn}
+
+    \begin{thm}
+        There exist two disjoint enumerable sets $X$ and $Y$ that cannot be separated by any decidable set.
+    \end{thm}
+
+    \begin{proof}
+        Let $d$ be a computable function that only takes the values 0 and 1 with no total computable extension. Set 
+        \begin{align*}
+            X &= \{x \mid d(x) = 1\}
+            Y &= \{x \mid d(x) = 0\}
+        \end{align*}
+
+        It is clear that both $X$ and $Y$ are enumerable. Suppose that they can be separated by a decidable set $C$.
+        WLOG suppose $X \subseteq C$ and $C \cap Y = \varnothing$. Note that the characteristic function of $C$ extends $d$ which 
+        contradicts our assumption that $d$ has not total computable extension.
+    \end{proof}
+
+    \begin{thm}
+        There exists a simple set.
+    \end{thm}
+
+    We want to find / construct an enumerable set $S$ with an immune complement. If such a set $S$ exists then it must share 
+    a common point with any infinite enumerable subset. To guarantee this, we will add to $S$ an element of each infinite enumerable 
+    set $V$. We also need to ensure that infinitely many elements are left outside of $S$. We will add to $S$ only sufficiently 
+    large elements to make this happen.
+
+    \textbf{Construction: } Let $W$ be a universal enumerable set of pairs. It's sections $W_i$ are our enumerable sets in 
+    $\N_0$. We refer to $W_i$ as the $i^{\text{th}}$ enumerable set. Define 
+    \[
+        T = \{(i,x) \mid x \in W_i \text{ and } x > 2i\}
+    \]
+
+    The set $T$ is enumerable as 
+    \[
+        W_i \cap \{x > 2i \}
+    \]
+    is the intersection of an enumerable set and a decidable set. Let $M$ enumerate the elements of $T$ by omitting the 
+    pairs where the first element has already occurred earlier. Then a certain enumerable subset $T'$ of $T$ remains. Now consider 
+    the enumerable set $S$ of the second elements of all pairs contained in $T'$.
+
+    \textbf{Claim: } The set $S$ has nonempty intersection with any infinite enumerable set. 
+
+    Any infinite section $W_i$ contains elements larger that $2i$. The set $T$ contains at least one element with first 
+    component $i$. The second component of this pair belongs both to $S$ and to $W_i$. On the other hand, the set $S$ has 
+    infinite complement since at most $n+1$ different numbers from 0 to $2n$ belong to $S$.
+\end{document}

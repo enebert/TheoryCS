@@ -38,3 +38,5 @@
 * A set $X \subseteq \mathbb{N}_0 is said to be immune if it is infinite and only has a finite number of enumerable subsets.
 
 * A set $X$ is said to be simple if its complement is immune.
+
+* The numberings of computable functions that correspond to Godel universal functions are called Godel numberings.

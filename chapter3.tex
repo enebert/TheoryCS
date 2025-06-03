@@ -1,0 +1,219 @@
+\documentclass[10pt, letterpaper]{article}
+%Graphic and Diagram Setup
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[all]{xy}
+
+%Inserting Graphics
+%An example of the use of this command is
+% \begin{minipage}{4in}
+%   \Fig{filename}
+% \end{minipage}
+\newcommand{\Fig}[1]{\includegraphics[width=0.5\textwidth]{#1}}
+
+%Math Symbol Setup
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+%Math Fonts
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+
+%Absolute Value and Norm Notation
+\newcommand{\abs}[1]{\left \lvert #1 \right \rvert}
+\newcommand{\norm}[1]{\left \lVert #1 \right \rVert}
+
+%Kernel of a map
+\renewcommand{\ker}{\operatorname{Ker}}
+
+%Lie Algebra of a Lie Group
+\newcommand{\lie}[1]{\operatorname{Lie}(#1)}
+
+%Fields and Blackboard Letters
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\A}{\mathbb{A}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+%Theorems and Definitions
+\newtheorem{thm}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{cor}{Corollary}
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+
+%Fancy Header Setup
+\usepackage{fancyhdr}
+\fancyhf{}
+\pagestyle{fancy}
+\lhead{}
+\chead{\bfseries Numberings \& Operations}
+\rhead{}
+\lfoot{Course Name}
+\cfoot{Your Name}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.1pt}
+
+%Double Space
+\usepackage{setspace}
+\linespread{1.6}
+
+%Document Content
+\begin{document}
+
+We begin with a definition:
+
+\begin{defn}
+    Let $U$ be a universal function for the class of computable one varialbe functions. We can specify a numbering 
+    of this class: The $n^{\text{th}}$ function is the section $U_n$. More generally, a nautral numbering 
+    of an arbitrary set $\mathscr{F}$ is a total map $\nu:\N_0 \rightarrow \mathscr{F}$ which has range $\mathscr{F}$.
+\end{defn}
+
+\textbf{Goal: } Give an accurate formulation and proof for the statement: There exists an algorithm that assigns to a pair
+of numbers of any two computable functions a number for their composition.
+
+\textbf{Require: } The universal function doing the numbering to be computable.
+
+\textbf{Need: } A G\"{o}del numbering.
+
+We let $U$ be a binary computable universal function for the class of unary computable functions. It is called a G\"{o}del 
+universal function if for any computable binary function $V$ there exists a total computable unary function
+$s$ such that $V(m,x) = U(s(m),x) \hspace*{.15in} \forall m,x$. In other words the sections $V_m$ and $U_{s(m)}$ coincide.
+
+\begin{thm}
+    A G\"{o}del universal function exists.
+\end{thm}
+
+\begin{proof}
+    Let $T$ be a ternary computable function that is universal for all binary computable functions. One can construct such a 
+    thing as follows:
+
+    Fix an arbitrary computable numbering of pairs $\sigma:\N_0 \times \N_0 \rightarrow \N_0$ which is a 1-to-1 correspondence. We 
+    assign $\sigma(u,v)$ to be the number of the pair $(u,v)$. Let $R$ be a universal computable function for the class 
+    of all unary computable functions. We then define $T(n,u,v) = R(n, \sigam(u,v))$.
+
+    \textbf{claim: } $T$ is universal for binary computable functions. 
+
+    Let $F$ be an arbitrary binary computable function. Let $f(\sigma(u,v)) = F(u,v)$ which is a unary computable function.
+    Since $R$ is universal, there exists an $n \in \N_0$ such that $R_n = f$ when applied to the input $x$. For 
+    this $n$, we have that 
+    \[
+        T(n,u,v) = R(n,\sigma(u,v)) = f(\sigma(u,v)) = F(u,v).
+    \]
+    Since $T_n$ coincides with $F$ we've shown that $T$ is universal.
+
+    We now endeavor to use $T$ to define a binary G\"{o}del universal function $U$. We set $U(\sigma(n,u),v) = T(n,u,v)$. 
+    Any binary computable function $V$ occurs among the sections of $T$. Hence there is some $n$ such that $V(u,n) = T(n,u,v)$
+    for every $u,v$. Then $V(u,v)=U(\sigma(n,u),v). We define $s(u) = \sigma(n,u)$. We conclude that the constructed universal 
+    function is G\"{o}del.
+\end{proof}
+
+\begin{defn}
+    The numberings of computable functions that correspond to G\"{o}del universal functions are called G\"{o}del numberings.
+\end{defn}
+
+\begin{thm}
+    Let $U$ be a G\"{o}del universal function for the class of unary computable functions. Then there exists a 
+    total function $c$ that assigns to numbers $p,q$ of two unary function a number $c(p,q)$ of their composition $U_{c(p,q)} = U_p \circ U_q$
+    or $U_{c(p,q)}(x) = U(p,U_q(x))$.
+\end{thm}
+
+\begin{proof}
+    Consider a binary computable function $V$ defined by the equation $V(\sigma(p,q), x) = U(p,U(q,x))$. By the definition 
+    of a G\"{o}del universal function, there exists a unary total computable function $s$ such that $V(m,x)=U(s(m),x) \hspace*{.15in} m,x$.
+    In which case
+    \[
+        V(\sigma(p,q),x) = U(s(\sigma(p,q)),x).
+    \]
+    Hence $c(p,q) = s(\sigma(p,q))$ is the desired relation.
+\end{proof}
+
+\begin{rem}
+    The converse is also true.
+\end{rem}
+
+\textbf{Q: } Does there exist a computable universal function that is not G\"{o}del? 
+
+\textbf{A: } It turns out that the answer is yes.
+
+\subsection*{Computable Sequences of Computable Functions}
+
+Let $f_0, f_1, \ldots$ be a sequence of computable functions of one variable. We want to assign meaning to a sequence 
+$i \mapsto f_i$ is computable. Here are two possible definitions:
+
+\begin{enumerate}
+    \item This sequence is called computable if the binary function $F$ defined by $F(i,n) = f_i(n)$ is computable.
+    \item This sequence is called computable if there exists a computable sequence of nautral numbers $c_0, c_1, c_2, \ldots$ such that 
+    such that $c_i$ is one of the numbers of the function $f_i$.
+\end{enumerate}
+
+The definition (b) depends on a numbering of computable functions. It turns out that these two definitions are 
+equivalent if it is a G\"{o}del numbering.
+
+\begin{thm}
+    If the numbering is computable, then (b) $\Rightarrow$ (a). If the number is a G\"{o}del numbering, then (a) $\Rightarrow$ (b).
+\end{thm}
+
+\begin{proof}
+    If $U$ is a computable universal function and the sequence $i \mapsto c_i$ is computable then 
+    \[
+        F(i,x) = f_i(x) = U_{c_i}(x)
+    \]
+    is computable as the composition of computable functions.
+
+    Coversely, if a function $F$ is computable and $U$ is G\"{o}del universal function, then the coverter that 
+    exists by definition of a $U$ being G\"{o}del, is the function that takes $i$ into one of the numbers of $f_i$.
+\end{proof}
+
+\subsection*{G\"{o}del Universal Sets}
+
+\begin{defn}
+    An enumerable set $W \subset \N_0 \times \N_0$ is called a G\"{o}del universal enumerable set if for every enumerable set 
+$V \subsete \N_0 \times \N_0$ there exists a total computalbe function $s:\N_0 \rightarrow \N_0$ such that 
+(n,x) \in $V$ if and only if $(s(n), x) \in W$ for every $n,x$.
+\end{defn}
+
+\begin{itemize}
+    \item Each set $U \subset \N_0 \times \N_0$ defines a numbering of a certain family of subsets in the following way: $n$ is a number 
+of the $n^{\text{th}}$ section $U_n$.
+    \item An enumerable subset of $\N_0 \times \N_0$ specifies a numbering of a certain family of enumerable subsets of $\N_0$.
+    such numberings are computable.
+    \item An enumerable subset $W \subset \N_0 \times \N_0$ is universal if and only if any enumerable subset $\N_0$ has a $W$-number, and $W$ is 
+    a G\"{o}del set if and only if any computable numbering $V$ is computably reducible to the $W$ numbering in the sense that 
+    $V_n = W_{s(n)}$ for some computable function $s$.
+\end{itemize}
+
+\begin{thm}
+    A G\"{o}del universal enumerable set $W \subset \N_0 \times \N_0$ exists.
+\end{thm}
+
+\begin{proof}
+    This is a consequence of the following lemma.
+\end{proof}
+
+\begin{lemma}
+    The domain of a G\"{o}del universal function for the class of unary computable function is a G\"{o}del universal set 
+    for the class of enumerable subsets of $\N_0$.
+\end{lemma}
+
+\begin{proof}
+    Let $U$ be a G\"{o}del universal function, and let $W$ be its domain. Consider an arbitrary enumerable set $V \subset \N_0 \times \N_0$ 
+    and a computable function $G$ with domain $V$. Since $U$ is G\"{o}del there exists a total computable function 
+    $s:\N_0 \rightarrow \N_0$ such that $G_n = U_{s(n)}$ and therefore their domains $V_n$ and $W_{s(n)}$ also coincide.
+\end{proof}
+
+\begin{thm}
+    Let $W \subset \N_0 \times \N_0$ be a G\"{o}del universal enumerable set. Then a number of the intersection of two enumerable 
+    sets can be algorithmically computed from $W$-numbers of these sets: there exists a binary total computable function $s$ such that 
+    $W_{s(m,n)} = W_m \cap W_n$.
+\end{thm}
+\end{document}

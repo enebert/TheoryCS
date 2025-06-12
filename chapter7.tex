@@ -1,0 +1,185 @@
+\documentclass[10pt, letterpaper]{article}
+%Graphic and Diagram Setup
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[all]{xy}
+
+%Inserting Graphics
+%An example of the use of this command is
+% \begin{minipage}{4in}
+%   \Fig{filename}
+% \end{minipage}
+\newcommand{\Fig}[1]{\includegraphics[width=0.5\textwidth]{#1}}
+
+%Math Symbol Setup
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+%Math Fonts
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+
+%Absolute Value and Norm Notation
+\newcommand{\abs}[1]{\left \lvert #1 \right \rvert}
+\newcommand{\norm}[1]{\left \lVert #1 \right \rVert}
+
+%Kernel of a map
+\renewcommand{\ker}{\operatorname{Ker}}
+
+%Lie Algebra of a Lie Group
+\newcommand{\lie}[1]{\operatorname{Lie}(#1)}
+
+%Fields and Blackboard Letters
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\A}{\mathbb{A}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+%Theorems and Definitions
+\newtheorem{thm}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{cor}{Corollary}
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+
+%Fancy Header Setup
+\usepackage{fancyhdr}
+\fancyhf{}
+\pagestyle{fancy}
+\lhead{}
+\chead{\bfseries Oracle Computations}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.1pt}
+
+%Double Space
+\usepackage{setspace}
+\linespread{1.6}
+
+%Document Content
+\begin{document}
+    If a set $B$ is $m$-reducible to a decidable set $A$, $B \leq_m A$, then $B$ is also decidable. Suppose $A$ is undecidable, but we have 
+    access to an oracle for $A$ that answers questions about the membership of numbers in $A$. In which case, we can use it to answer 
+    questions about $B$. Here's a general scheme:
+
+    \begin{enumerate}
+        \item [(a)] Only one question is asked.
+        \item [(b)] The answer is taken as the answer to the original question.
+    \end{enumerate}
+
+    Here are a couple of instances that are related but don't quite follow the rules above:
+
+    \begin{enumerate}
+        \item [(a)] Given an oracle for the set $A$ can we answer questions about $A^c$? Yes, but (b) in the scheme above is being reversed.
+        \item [(b)] Given an oracle for $A$ can we answer questions about $A \times A$? Yes, but it seems like (a) in the scheme above isn't quite 
+        right as we're asking two questions.
+    \end{enumerate}
+
+    We now seek a more general notion of reducibility:
+
+    \begin{defn}
+        \begin{enumerate}
+            \item [(a)] Let us say that $B$ is Turing Reducible to $A$ if there exists an algorithm that decides the set $B$ using an oracle answering 
+            questions about $A$. We denote this by $B \leq_T A$.
+            \item [(b)] If $B$ is reducible to $A$, we also say that $B$ is $A$-decidable.
+        \end{enumerate}
+    \end{defn}
+
+    \begin{thm}
+        \begin{enumerate}
+            \item [(a)] If $B \leq_m A$, then $B \leq_T A$.
+            \item [(b)] $A \leq_T \N_0 \setminus A$ for any $A$.
+            \item [(c)] If $A \leq_T B$ and $B \leq_T C$ then $A \leq_T C$.
+            \item [(d)] If $A \leq_T B$ and $B$ is decidable, then $A$ is decidable.
+        \end{enumerate}
+    \end{thm}
+
+    \begin{rem}
+        Notice that (b) implies that it's possible that a nonenumerable set can be Turing Reducible to an enumerable set, which is 
+        impossible for $m$-reducibility.
+    \end{rem}
+
+    We can define the notion of an $A$-computable funciton similarly to how e defined what it meant to be $A$-decidable.
+
+    \begin{defn}
+        A funcction $f$ is said to be $A$-computable if there exists an algorithm $M$, with calls to an oracle, that computes $f$ if the calls are correctly 
+        answered by the $A$-oracle.
+    \end{defn}
+
+    \begin{itemize}
+        \item If $f$ is defined at $x$, then $f(x)$ is returned and the algorithm halts.
+        \item If $x \notin \operatorname{Dom} f$, then it does not halt.
+    \end{itemize}
+
+    \begin{thm}
+        A partial function $f$ is computable relative to a total function $\alpha$ if and only if it is computable relative to the graph of the 
+        function $\alpha$.
+    \end{thm}
+
+    We now work through a whole slew of definitions:
+
+    \begin{defn} \leavevmode
+        \begin{enumerate}
+            \item [(a)] A function with natural values defined on a finite set of $\N_0$ is called a pattern. Any patter is defined by a set of 
+            pairs $(\text{ arg }, \text{ value })$.
+            \item [(b)] Two patterns are called coherent if the union of their graphs is the graph of a function. There is no place where both are 
+            defined and take on different values.
+            \item [(c)] Let $(x,y,t)$ be a triple where $x,y \in \N_0$ and $t$ is a pattern. We will say that two triples $(x_1, y_1, t_1)$ and $(x_2, y_2, t_2)$ are 
+            incompatible if the patterns are coherent if $x_1=x_2$ but $y_1 \neq y_2$.
+            \item [(d)] A set $M$ will be said to be consistent if it contains no incompatible triples.
+        \end{enumerate}
+    \end{defn}
+
+    We now have the following construction:
+
+    Let $M$ be a consistent set and $\alpha$ some function. Consider triples $(x,y,t) \in M$ such that $\Gamma(t) \subset \Gamma(\alpha)$.
+    All patters are coherent so $M$ is consistent. No two of the triples can have equal first and different second components. If we omit the 
+    $3^{\text{rd}}$ element of the triples, we get the graph of a function (which is probably partial). This function will be 
+    denoted $M[\alpha]$.
+
+    \begin{thm}
+        A partial function $\N_0 \rightarrow \N_0$ is computable relative to a total function $\alpha: \N_0 \rightarrow \N_0$ if and only if 
+        there exists an enumerable consistent set of triples $M$ such that $f = M[\alpha]$.
+    \end{thm}
+    \subsection*{Relativization}
+
+    Let us fix a total function $\alpha$ the entire theory of computable functions can be relativized with respect to $\alpha$. So the theory 
+    we've developed can be applied to $\alpha$-computable functions. The proofs are the same with small changes. In particular, we can 
+    defined the notion of a set enuemrable with respect to $\alpha$ or $\alpha$-enumerable:
+    \begin{enumerate}
+        \item [(a)] As the domain of an $\alpha$-computable function.
+        \item [(b)] As the range of an $\alpha$-computable function.
+        \item [(c)] As the projection of an $\alpha$-decidable set.
+    \end{enumerate}
+
+    Let $E$ be an arbitrary set of pairs $(x,t)$ where $x$ is a numer and $t$ is a pattern. We take a total function $\alpha$ and pick out from 
+    the set $E$ the pairs whose $2^{\text{nd}}$ components are parts of $\alpha$. The first components will be denoted by $E[\alpha]$.
+
+    \begin{thm}
+        A set $X$ is $\alpha$-enumerable if and only if $X=E[\alpha]$ for some enumerable set $E$.
+    \end{thm}
+
+    \begin{proof}
+        Let $X$ be the domain of a function $f$ that is $\alpha$-computable. Let $f=M[\alpha]$ for some enumerable set $M$ that is 
+        consistent. Let us delete the $3^{\text{rd}}$ component from each triple in $M$. We obtain an enumerable set of pairs, call it $E$.
+        Then $E[\alpha]$ is the domain of $f$ so $E[\alpha]=X$.
+
+        Conversely, suppose that $X=E[\alpha]$ for some function $\alpha$. Now consider the set $M$ obtained by inserting 0 between the 
+        components for each pair of $E$. The set $M$ is consistent and $M[\alpha] \equiv 0$ defined on $X=E[\alpha]$.
+    \end{proof}
+
+    \begin{thm}
+        Let $\alpha$ be a total function. There exists a binary computable function universal for the class of unary $\alpha$-computable functions.
+    \end{thm}
+\end{document}

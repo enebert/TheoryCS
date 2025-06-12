@@ -1,0 +1,173 @@
+\documentclass[10pt, letterpaper]{article}
+%Graphic and Diagram Setup
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[all]{xy}
+
+%Inserting Graphics
+%An example of the use of this command is
+% \begin{minipage}{4in}
+%   \Fig{filename}
+% \end{minipage}
+\newcommand{\Fig}[1]{\includegraphics[width=0.5\textwidth]{#1}}
+
+%Math Symbol Setup
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+%Math Fonts
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+
+%Absolute Value and Norm Notation
+\newcommand{\abs}[1]{\left \lvert #1 \right \rvert}
+\newcommand{\norm}[1]{\left \lVert #1 \right \rVert}
+
+%Kernel of a map
+\renewcommand{\ker}{\operatorname{Ker}}
+
+%Lie Algebra of a Lie Group
+\newcommand{\lie}[1]{\operatorname{Lie}(#1)}
+
+%Fields and Blackboard Letters
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\A}{\mathbb{A}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+%Theorems and Definitions
+\newtheorem{thm}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{cor}{Corollary}
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{ex}{Example}
+
+%Fancy Header Setup
+\usepackage{fancyhdr}
+\fancyhf{}
+\pagestyle{fancy}
+\lhead{}
+\chead{\bfseries Arithmetical Hierarchy}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.1pt}
+
+%Double Space
+\usepackage{setspace}
+\linespread{1.6}
+
+%Document Content
+\begin{document}
+    \subsection*{$\Sigma_n$ and $\Pi_n$}
+
+    Recall that a set $A \subset \N_0$ is enumerable if and only if there exists a decidable set $B \subset \N_0 \times \N_0$ such
+    that $A$ is the projection of $B$. Let's identify sets and predicates so that we can say that a property $A(x)$ of natural numbers 
+    is enumerable if and only if it can be represented in the form 
+    \[
+        A(x) \Leftrightarrow \exists y B(x,y)
+    \]
+    where $B(x,y)$ is some decidable property.
+
+    \textbf{Q: } What can be said about other combinations of quantifiers? \\
+    \textbf{Q: } What properties are representable in the form 
+    \[
+        A(x) \Leftrightarrow \exists y \exists z C(x,y,z)
+    \]
+    where $C$ is some decidable property?
+
+    We can replace consecutive quantifiers by using one with computable numbering of pairs:
+    \[
+        C''(x,\sigma(y,z)) \Leftrightarrow C(x,y,z) \text{ and } A(x) \Leftrightarrow \exists w C''(x,w).
+    \]
+
+    \textbf{Q: } What properties can be represented in the form 
+    \[
+        A(x) \Leftrightarrow \forall y B(x,y)
+    \]
+    where $B(x,y)$ is a decidable property.
+
+    \textbf{A: } The properties with enumerable negations:
+    \begin{align*}
+        \neg A(x) &\Leftrightarrow \neg \forall y B(x,y) \\
+                  &\Leftrightarrow \exists y (\neg B(x,y))
+    \end{align*}
+    We are implicitly using the fact that decidability is preserved under negation.
+
+    We now progress to a general definition:
+
+    \begin{defn}
+        A property $A$ belongs to the class $\Sigma_n$ if it can be represented in the form 
+        \[
+            A(x) \Rightarrow \exists y_1 \forall y_2 \exists y_3 \cdots B(x_1, y_1, y_2, \ldots, y_n)
+        \]
+        with $n$ alternating quantifiers and $B$ is a decidable property.
+
+        If the $n$ alternating quantifiers starts with $\forall$, then we obtain the definition of the class $\Pi_n$.
+    \end{defn}
+
+    \begin{thm}
+        \begin{enumerate}
+            \item[(a)] The class $\Sigma_n$ and $\Pi_n$ does not change if we allow groups of quantifiers of the same type instead 
+            of a single quantifier.
+            \item[(b)] If a predicate belongs to $\Sigma_n$ then its negation belongs to $\Pi_n$ and vice versa.
+        \end{enumerate}
+    \end{thm}
+
+    \begin{thm}
+        \begin{enumerate}
+            \item [(a)] The intersection and union of two sets of the class $\Sigma_n$ belongs to $\Sigma_n$.
+            \item [(b)] The intersection and union of two sets of the class $\Pi_n$ belong to $\Pi_n$.
+        \end{enumerate}
+    \end{thm}
+
+    \begin{ex}
+        \begin{align*}
+            A(x) &\Leftrightarrow \exists y \forall z B(x,y,z) \\
+            C(x) &\Leftrightarrow \exists u \forall v D(x,u,v) \\
+        \end{align*}
+
+        Then 
+        \[
+            A(x) \land C(x) \Leftrightarrow \exists y \exists u \forall z \forall v [B(x,y,z) \land D(x,u,v)]
+        \]
+        The property is decidable and we can compbine the quantifiers to get it to belong to $\Sigma_n$.
+    \end{ex}
+
+    \begin{thm}
+        The classes $\Sigma_n$ and $\Pi_n$ are "hereditary downward" with respect to $m$-reducibility in the 
+        following way:
+        
+        If $A \leq_m B$ and $B \in \Sigma_n$ then $A \in \Sigma_n$ or $B \in \Pi_n$ then $A \in \Pi_n$.
+    \end{thm}
+
+    \subsection*{Unviersal Sets in $\Sigma_n$ and $\Pi_n$}
+
+    \textbf{Goal: } Show that the classes $\Sigma_n$ and $\Pi_n$ are distinct for different $n$.
+
+    \textbf{How? } We find a universal set for $\Sigma_n$ and show that it cannot belong to $\Sigma_k$ for any $k < n$.
+
+    \begin{thm}
+        For any $n$, the class $\Sigma_n$ contains a set universal for this class. The complement of this set will be 
+        universal for the class $\Pi_n$.
+    \end{thm}
+
+    \begin{thm}
+        Universal $\Sigma_n$-sets do not belong to the class $\Pi_n$. Similarly universal $\Pi_n$-sets do not belong to $\Sigma_n$.
+    \end{thm}
+
+    \begin{rem}
+        The hierarchy is strict.
+    \end{rem}
+\end{document}

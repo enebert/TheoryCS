@@ -99,7 +99,7 @@ $s$ such that $V(m,x) = U(s(m),x) \hspace*{.15in} \forall m,x$. In other words t
 
     Fix an arbitrary computable numbering of pairs $\sigma:\N_0 \times \N_0 \rightarrow \N_0$ which is a 1-to-1 correspondence. We 
     assign $\sigma(u,v)$ to be the number of the pair $(u,v)$. Let $R$ be a universal computable function for the class 
-    of all unary computable functions. We then define $T(n,u,v) = R(n, \sigam(u,v))$.
+    of all unary computable functions. We then define $T(n,u,v) = R(n, \sigma(u,v))$.
 
     \textbf{claim: } $T$ is universal for binary computable functions. 
 
@@ -113,7 +113,7 @@ $s$ such that $V(m,x) = U(s(m),x) \hspace*{.15in} \forall m,x$. In other words t
 
     We now endeavor to use $T$ to define a binary G\"{o}del universal function $U$. We set $U(\sigma(n,u),v) = T(n,u,v)$. 
     Any binary computable function $V$ occurs among the sections of $T$. Hence there is some $n$ such that $V(u,n) = T(n,u,v)$
-    for every $u,v$. Then $V(u,v)=U(\sigma(n,u),v). We define $s(u) = \sigma(n,u)$. We conclude that the constructed universal 
+    for every $u,v$. Then $V(u,v)=U(\sigma(n,u),v)$. We define $s(u) = \sigma(n,u)$. We conclude that the constructed universal 
     function is G\"{o}del.
 \end{proof}
 
@@ -178,8 +178,8 @@ equivalent if it is a G\"{o}del numbering.
 
 \begin{defn}
     An enumerable set $W \subset \N_0 \times \N_0$ is called a G\"{o}del universal enumerable set if for every enumerable set 
-$V \subsete \N_0 \times \N_0$ there exists a total computalbe function $s:\N_0 \rightarrow \N_0$ such that 
-(n,x) \in $V$ if and only if $(s(n), x) \in W$ for every $n,x$.
+$V \subset \N_0 \times \N_0$ there exists a total computalbe function $s:\N_0 \rightarrow \N_0$ such that 
+$(n,x) \in V$ if and only if $(s(n), x) \in W$ for every $n,x$.
 \end{defn}
 
 \begin{itemize}

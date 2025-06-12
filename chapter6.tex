@@ -1,0 +1,341 @@
+\documentclass[10pt, letterpaper]{article}
+%Graphic and Diagram Setup
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[all]{xy}
+
+%Inserting Graphics
+%An example of the use of this command is
+% \begin{minipage}{4in}
+%   \Fig{filename}
+% \end{minipage}
+\newcommand{\Fig}[1]{\includegraphics[width=0.5\textwidth]{#1}}
+
+%Math Symbol Setup
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+%Math Fonts
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+
+%Absolute Value and Norm Notation
+\newcommand{\abs}[1]{\left \lvert #1 \right \rvert}
+\newcommand{\norm}[1]{\left \lVert #1 \right \rVert}
+
+%Kernel of a map
+\renewcommand{\ker}{\operatorname{Ker}}
+
+%Lie Algebra of a Lie Group
+\newcommand{\lie}[1]{\operatorname{Lie}(#1)}
+
+%Fields and Blackboard Letters
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\A}{\mathbb{A}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+%Theorems and Definitions
+\newtheorem{thm}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{cor}{Corollary}
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{ex}{Example}
+
+%Fancy Header Setup
+\usepackage{fancyhdr}
+\fancyhf{}
+\pagestyle{fancy}
+\lhead{}
+\chead{\bfseries $m$-reducibility \& Properties of Enumerable Sets}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.1pt}
+
+%Double Space
+\usepackage{setspace}
+\linespread{1.6}
+
+%Document Content
+\begin{document}
+    \subsection*{$m$-reducibility}
+
+    To prove that a certain set $X$ is undecidable we can do this by showing that: $X$ decidable implies that any enumerable set $K$
+    would be decidable.
+
+    and we know that there are undecidable enumerable sets. One can do this by reduction. Construct a total computable function $f$ 
+    such that $n \in K$ if and only if $f(n) \in X$.
+
+    \begin{defn}
+        We say that a set $A \subseteq \N_0$ is $m$-reducible to a set $B \subseteq \N_0$ if there exists a computable function 
+        $f:\N_0 \rightarrow \N_0$ such that $x \in A \Leftrightarrow f(x) \in B$. One says that $f$ $m$-reduces $A$ to $B$ and 
+        is denoted by $A \leq_m B$.
+    \end{defn}
+
+    \begin{thm} \leavevmode 
+        \begin{enumerate}
+            \item [(a)] If $A \leq_m B$ and $B$ is decidable, then $A$ is decidable.
+            \item [(b)] If $A \leq_m B$ and $B$ is enumerable, then $A$ is enumerable.
+            \item [(c)] Reducibility is reflexive and transitive.
+            \item [(d)] If $A$ is $m$-reducible to $B$, then $A^c$ is $m$-reducible ot $B^c$.
+        \end{enumerate}
+    \end{thm}
+
+    \begin{proof}
+        \begin{enumerate}
+            \item[(a)] Let $f:A \rightarrow B$ be the computable function that does the reduction. Since $B$ is decidable there exists
+            an algorithm $M$ that decides if $x \in B$ or $x \notin B$. Let $x \in A$ be arbitrary. Then $x \in A \Leftrightarrow f(x) \in B$
+            apply $M$ to $f(x)$ to decide $A$. We conclude that $A$ is decidable.
+            \item[(b)] Since $B$ is enumerable, we know that the semicharacteristic function for $B$ is computable. Apply the semicharacteristic 
+            function to $f(x)$ and consider 
+            \[
+                V(x) = \begin{cases}
+                    0 &\text{ if } \operatorname{semi}(f(x)) = 0 \\
+                    \text{undefined} &\text{otherwise}
+                \end{cases}
+            \]
+            which yields a computable semicharacteristic function for $A$.
+            \item[(c)] Use the composition of functions.
+            \item[(d)] Suppose $f:A \rightarrow B$ is the function that does the $m$-reduction. Then $x \in A \Leftrightarrow f(x) \in B$
+            so $x \notin A \Leftrightarrow f(x) \notin B$ and therefore $f$ also $m$-reduces the complements. 
+        \end{enumerate}
+    \end{proof}
+
+    \begin{ex}
+        Show that $A \nleq_m \N_0 \setminus A$ for an enumerable undecidable set $A$.
+    \end{ex}
+
+    \begin{proof}
+        Suppose not. Let $f: A \rightarrow \N_0 \setminus A$ do an $m$-reduction for an enumerable undecidable set $A$. Then $\N_0 \setminus A$
+        is nonenumerable. Since $f$ $m$-reduces it will also $m$-reduce complements $f:\N_0 \setminus A \rightarrow A$
+        but $A$ enumerable implies that $\N_0 \setminus A$ is enumerable, which is a contradiction.
+    \end{proof}
+
+    \begin{rem}
+        Any decidable set $A$ is reducible to any set $B$ unless $B = \varnothing$ or $B = \N_0$. Here's some setup:
+        $p \in B$, $q \notin B$ and $A$ is decidable. Consider the function 
+        \[
+            f(x) = \begin{cases}
+                p &\text{ if } x \in A \\
+                q &\text{ otherwise}
+            \end{cases}
+        \]
+        If $B$ is empty we have no $p$ to use and if $B$ is $\N_0$ there is no $q$ to choose.
+    \end{rem}
+
+    \subsection*{$m$-complete sets}
+
+    \begin{thm}
+        In the class of enumerable sets, there are sets maximal with respect to $m$-reducibility, that is, sets to which any 
+        enumerable set can be $m$-reduced.
+    \end{thm}
+
+    \begin{proof}
+        Let $U \subseteq \N_0 \times \N_0$ be an enumerable set of pairs which is universal for the class of enumerable sets of 
+        natural numbers. Consider the set $V$ of numbers of all pairs from $U$
+        \[
+            V =  \{\sigma(x,y) \mid (x,y) \in U \}
+        \]
+        Let $T$ be an arbitrary enumerable set. There exists some $n \in \N_0$ such that $U_n = T$. Hence
+        \[
+            x \in T \Leftrightarrow x \in U_n \Leftrightarrow (n,x) \in U \Leftrightarrow \sigma(n,x) \in V
+        \]
+        and therefore the function $f: T \rightarrow V$ defined by $x \mapsto \sigma(n,x)$ reduces $T$ to $V$.
+    \end{proof}
+
+    \begin{defn}
+        We say that an enumerable set that is maximal with respect to $m$-reducibility is $m$-complete in the class of enumerable sets.
+    \end{defn}
+
+    \begin{rem}
+        Let $f:K \rightarrow A$ be the reduction. Since $K$ is $m$-complete for a given $T$, there is $g:T \rightarrow K$ that does 
+        an $m$-reduction. Hence the composition $T \rightarrow K \rightarrow A$ given by $g \circ f$ gives a reduction of $T$ to $A$.
+        The conclusion follows.
+    \end{rem}
+
+    \begin{thm}
+        Let $U \subset \N_0 \times \N_0$ be a G\"{o}del universal set for the class of enumerable sets. Then its diagonal section 
+        $D = \{x \mid (x,x) \in U\}$  is $m$-complete.
+    \end{thm}
+
+    \begin{proof}
+        The set $D$ is enumerable. Let $K$ be an arbitrary enumerable set. The set $V = \N_0 \times K$ whose sections are empty when 
+        $n \notin K$ or are $\N_0$ when $n \in K$.
+
+        Since $U$ is a G\"{o}del set, there exists a total computable function $s$ such that $V_n = U_{s(n)}$. Note that we have 
+        \[
+            U_{s(n)} = \begin{cases}
+                \varnothing &\text{ if } n \notin K \\
+                \N_0 &\text{ if } n \in K
+            \end{cases}
+        \]
+        Well $s(n) \in U_{s(n)}$ if and only if $s(n) \in D$ for $n \in K$. We conclude that $s$ reduces $K$ to $D$.
+    \end{proof}
+
+    \begin{rem}
+        We say that a set $X$ is infinite if there exists an injection $\N_0 \rightarrow X$. This is tantamount to saying there is a proper
+        subset of $X$ which has cardinality $n$ for every $n \in \N_0$. We say that $X$ is effectively infinite if there exists an algorithm 
+        $M$ that returns $n$ distinct elements of $X$ for every $n \in \N_0$.
+    \end{rem}
+
+    We've seen that $X$ is not enumerable if there is no algorithm that outputs exactly the elements of $X$. One way to show this  would be to find 
+    some element of $X$ that lies in no enumerable set. One would perhaps say that $X$ is effectively nonenumerable if there exists $x_0 \in X$ such
+    that $x_0 \notin A$ where $A$ is any enumerable set. This seems like pie-in-the-sky. Let's go through the formality now:
+
+    Let $W$ be a G\"{o}del universal enumerable set. We than have a numbering of enumerable sets.
+
+    \begin{defn}
+        We say that $X$ is effectively nonenumerable if there exists a total computable function $d$ such that $d(z) \in X \Delta W_z$ for all $z$,
+        where $\Delta$ is the set difference.
+    \end{defn}
+
+    We now embark to show that effective nonenumerability can be characterized in terms of $m$-reducibility.
+
+    \begin{thm}
+        If $A \leq_m B$ and $A$ is effectively nonenumerable, then $B$ is also effectively nonenumerable.
+    \end{thm}
+
+    \begin{proof}
+        Suppose we can find a point at which $B$ differs from any enumberable set $X$. Let $f:A \rightarrow B$ be the function that does the reduction.
+        Since $X$ is enumerable its preimage $f^{-1}(X)$ is also enumerable. Hence, we can find a point $x_0 \in f^{-1}(X)$ which differs from $A$. So 
+        $f(x_0)$is a point where $X$ and $B$ differ. 
+
+        \textbf{Q:} How do we effectively find $x_0$?
+
+        Consider the enumerable set 
+        \[
+            V = \{(x,y) \mid (x,f(y)) \in W\}
+        \]
+
+        where $W$ is a G\"{o}del universal set that defines a numbering. The set $V$ is enumerable as the preimage of the computable map 
+        $(x,y) \mapsto (x,f(y))$ and $V_n = f^{-1}(W)$. Since $W$ is a G\"{o}del universal set, there exists some total computable function 
+        $s$ such that $W_{s(n)} = V_n = f^{-1}(W_n)$ for all $n$. The function $s$ maps a $W$-number of any enumerable set into a $W$-number 
+        of its preimage under $f$.
+    \end{proof}
+
+    \begin{thm}
+        There exist enumerable sets with effectively nonenumerable complements.
+    \end{thm}
+
+    \begin{proof}
+        Let $D = \{n \mid (n,w) \in W\}$. The sets $W_n$ and $D$ do not differ at $n \in \N_0$ so $W_n$ differs from $D^c$ at $n$. We take 
+        $d = \operatorname{id}$ in the defintion of effective nonenumerability.
+    \end{proof}
+
+    \begin{thm}
+        The complement of any $m$-complete enumerable set is effectively nonenumerable.
+    \end{thm}
+
+    \begin{thm}
+        Let $K$ be an enumerable set and $A$ an effectively nonenumerable. Then 
+        \[
+            \N_0 \setminus K \leq_m A \Leftrightarrow K \leq_m \N_0 \setminus A.
+        \]
+    \end{thm}
+
+    \begin{proof}
+        Consider the set $V = K \times \N_0$. We've seen that its sections are either empty or conincide with $\N_0$. $W$ is a G\"{o}del set so 
+        we find a total function $s$ such that 
+        \begin{align*}
+            W_{s(n)} &= \varnothing \text{ for } n \notin K \\
+            W_{s(n)} &= \N_0 \text{ for } n \in K
+        \end{align*}
+        Let $d$ be the function that ensures the nonenumerability of the set $A$. Then $d(s(n)) \in A$ for $n \notin K$ and 
+        $d(s(n)) \notin A$ for $n \in K$. The composition of $d$ and $s$ reduces $\N_0 \setminus K$ to $A$.
+    \end{proof}
+
+    \begin{cor}
+        $A$ set is effectively nonenumerable if and only if the complement of some $m$-complete set is $m$-reducible to it.
+    \end{cor}
+
+    \begin{rem}
+        Not every nonenumerable set is effectively nonenumerable.
+    \end{rem}
+
+    \begin{thm}
+        Any effectively nonenumerable set contains an infinite enumerable set; that is it's not immune.
+    \end{thm}
+
+    \begin{proof}
+        Suppose that $A$ is effectively nonenumerable. Then we can find a point where $A$ differs from the empty set. And then a point
+        in $A$ that differs from the one point set and so on. In which case, we can algorithmically find arbitrarily many distinct 
+        elements.
+
+        \textbf{Claim: } Given a finite set specified by a list of its elements, we can obtain some numbers of this set in a G\"{o}del 
+        numbering of enumerable sets.
+
+        Let us fix a certain computable numbering of finite sets. Denote by $D_n$ the $n^{\text{th}}$ finite set in this numbering.
+        Then $D_n$ is the $n^{\text{th}}$ section of the enumerable set $D = \{(n,x) \mid x \in D_n\}$. Apply the defintion of 
+        G\"{o}del numbering of enumerable sets.
+    \end{proof}
+
+    \subsection*{Isomorphisms of $m$-complete sets}
+
+    Recall that a set is said to be $m$-complete if it is maximal with respect to $m$-reducibility.
+
+    \begin{defn}
+        We say that $k$ and $l$ are $A$-equivalent if $k,l \in A$ or $k,l \notin A$.
+    \end{defn}
+
+    \begin{lemma}
+        Let $A$ be an $m$-complete enuemrable set. Then it is possible to algorithmically many other natural numbers that are $A$-equivalent to $n$.
+    \end{lemma}
+
+    \begin{proof}
+        \textbf{Case 1: } $n \in A$
+
+        Let $P$ be an enumerable undecidable set. Consider an enumerable set of pairs $A \times P$. It is $m$-reducible to $A$ since $A$ 
+        is $m$-complete. We can always get a natural number from a pair by using a numbering. Then there is a total computable function $f$ 
+        of two natural arguments with the property 
+        \[
+            f(n,m) \in A \Leftrightarrow n \in A \text{ and } m \in P.
+        \]
+        In particular, $n$ and $f(n,m)$ are $A$-equivalent. Arranging $P$ into a computable sequence $p(0), p(1), \ldots$ and obtain new numbers that 
+        are $A$-equivalent to $n$. Collect these numbers into a set $X$.
+
+        Suppose $m \in P$. Then $f(n,m) \in X$ by construction and if $m \mapsto f(n,m) \notin X$ when $m \notin P$. Thus the function therefore $X$  is 
+        undecidable and hence infinite.
+
+        \textbf{Case 2: } $n \notin A$
+
+        Let $P$ and $Q$ be two enumerable separable sets. Consider the enumerable set of pairs $(A \times P) \cup (\N_0 \times Q)$. Let $f$ 
+        be the function reducing this set of pairs to $A$. This means that $f(n,m) \in A$ if and only if $(n \in A \text{ and } m \in P)$ or $m \in Q$.
+        The numbers $f(n,m)$ are $A$-equivalent for $m \in P$ and $n \in \N_0$. Let $X = \{f(n,p(0)), f(n,p(1)), \ldots\}$.
+
+        \textbf{Claim: } This sequence contains infinitely many many terms.
+
+        Suppose not. By assumption $X \cap A = \varnothing$. Notice that $f(n,m) \in X$ if $m \in P$ and $f(n,m) \notin X$ if $m \in Q$. Thus the 
+        preimage of $X$ under the map $m \mapsto f(n,m)$ separates $P$ from $Q$. However, this preimage is decidable. This contradicts our 
+        assumption that $P$ and $Q$ cannot be separated by a decidable set.
+
+        We run these in parallel to inevitably get the desired result.
+    \end{proof}
+
+    \begin{thm}
+        Let $A$ and $B$ be $m$-complete enumerable sets. Then. there exists a computable 1-to-1 correspondence $f:\N_0 \rightarrow \N_0$ that maps $A$
+        onto $B$ and $x \in A \Leftrightarrow f(x) \in B$. As stated $A$ and $B$ are two $m$-complete sets that are enumerable. We proceeed to construct
+        the required 1-to-1 correspondence: At the $k^{\text{th}}$ step 
+        \[
+            a_1 \leftrightarrow b_1, a_2 \leftrightarrow b_2, \ldots, a_k \leftrightarrow b_k
+        \]
+        such that $a_i \in A \Leftrightarrow b_i \in B$ for all $i$. At even steps, we can take the smallest number that has not been included with the 
+        LHS of this correspondence. Using $m$-reducibility and the lemma we can produce an infinite set of terms and we can choose the counterpart by 
+        using the number that has not yet appeared in the RHS. At odd steps we can do the same thing but from right-to-left.
+    \end{thm}
+
+    \begin{rem}
+        There is essentially only one $m$-complete set.
+    \end{rem}
+\end{document}

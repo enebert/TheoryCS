@@ -1,0 +1,267 @@
+\documentclass[10pt, letterpaper]{article}
+%Graphic and Diagram Setup
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[all]{xy}
+
+%Inserting Graphics
+%An example of the use of this command is
+% \begin{minipage}{4in}
+%   \Fig{filename}
+% \end{minipage}
+\newcommand{\Fig}[1]{\includegraphics[width=0.5\textwidth]{#1}}
+
+%Math Symbol Setup
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+%Math Fonts
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+
+%Absolute Value and Norm Notation
+\newcommand{\abs}[1]{\left \lvert #1 \right \rvert}
+\newcommand{\norm}[1]{\left \lVert #1 \right \rVert}
+
+%Kernel of a map
+\renewcommand{\ker}{\operatorname{Ker}}
+
+%Lie Algebra of a Lie Group
+\newcommand{\lie}[1]{\operatorname{Lie}(#1)}
+
+%Fields and Blackboard Letters
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\A}{\mathbb{A}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+%Theorems and Definitions
+\newtheorem{thm}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{cor}{Corollary}
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+
+%Fancy Header Setup
+\usepackage{fancyhdr}
+\fancyhf{}
+\pagestyle{fancy}
+\lhead{}
+\chead{\bfseries Properties of G\"{o}del Numberings}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.1pt}
+
+%Double Space
+\usepackage{setspace}
+\linespread{1.6}
+
+%Document Content
+\begin{document}
+\subsection*{Guiding Questions}
+
+\begin{enumerate}
+    \item[(a)] Is the set of numbers of the empty function in a certain G\"{o}del numbering decidable?
+    \item[(b)] Is it possible to determine whether a function is empty given its number in a G\"{o}del numbering? 
+\end{enumerate}
+
+\begin{rem}
+    Any two G\"{o}del numberings can be reduced to each other. Given a number of a function in one G\"{o}del numbering it is possible 
+    to obtai a number of the same function in the other numbering. Conclusion? The answer to the above quesiton is independent 
+    of the G\"{o}del numbering considered.
+\end{rem}
+
+\begin{thm}
+    Let $U$ be an arbitrary G\"{o}del universal function. Then the set of all the numbers $n$ such that the functions $U_n$ is 
+    empty is undecidable. 
+\end{thm}
+
+\begin{proof}
+    We use the method of reduction.
+
+    \textbf{Claim:} If this set were decidable, then any enumerable set would be decidable.
+
+    Let $K$ be an arbitarary enumerable undecidable set. Consider the following binary computable function:
+    \[
+        V(n,x) = \begin{cases}
+            0 &\text{ if } n \in K \\
+            \text{undefined} &\text{ if } n \notin K \\
+        \end{cases}
+    \]
+    Essentially this is the semicharacteristic function for $K$. The function $V$ has the sections:
+    \begin{enumerate}
+        \item For $n \in K$, $V_n \equiv 0$.
+        \item For $n \notin K$, $V_n$ is nowhere defined and is therefore the empty function.
+    \end{enumerate}
+    Since $U$ is a G\"{o}del universal function, there exists a total computable function $s$ such that 
+    \[
+        V(n,x) = U(s(n), x) \hspace*{.15in} \forall n,x
+    \]
+    that is $V_n = U_{s(n)}$. Hence, the value $s(n)$ is a number for the zero function where $n \notin K$. If the set of $U$-numbers 
+    for the empty function were decidable, we could apply that algorithm to $s(n)$ and $K$ would be decidable. One of the things we 
+    can observed now: Any finite set is decidable so the cardinality of the numbers in any G\"{o}del numbering is infinite.
+
+    \textbf{Claim: } The set of numbers of the empty function is not enumerable either.
+
+    The set of numbers for any numbering of nonempty functions is enumerable. How? If $U(n,x)$ is defined for some $x$ then print $n$. We saw 
+    that Post's theorem said if the complement of an undecidable set is enumerable then the set itself is nonenumerable.
+\end{proof}
+
+\begin{thm}[Rice-Uspensky]
+    Let $\mathscr{F}$ denote the class of all unary computable functions. Let $\mathscr{A} \subset \mathscr{F}$ be an arbitrary 
+    nontrivial property of computable functions with $\mathscr{A} \neq \varnothing$ and the inclusion is proper. Let $U$ be a G\"{o}del universal 
+    function. Then it is impossible to determine algorithmically wheter a computable function with a given $U$-number has the property $\mathscr{A}$.
+
+    \framebox{
+        The set $\{n \mid U_n \in \mathscr{A}\}$ is undecidable.
+    }
+\end{thm}
+
+\begin{proof}
+    WLOG we may assume that the empty function $\zeta$ belongs to $\mathscr{A}$. If it doesn't replace $\mathscr{A}$ with its complement. Let 
+    $\xi \in \mathscr{F} \setminus \mathscr{A}$ be arbitarary. We repeat the previous proof with 
+    \[
+        V(n,x) = \begin{cases}
+            \xi(x) &\text{ if } n \in K \\
+            \text{undefined} &\text{ if } n \notin K \\
+        \end{cases}
+    \]
+    Again the function $V$ is computable as an adjustment of the semicharacteristic function on $K$. For $n \in K$ then $V_n$ conincides with 
+    $\xi$ and $n \notin K$ it conincides with $\zeta$. Hence, $V_n \in \mathscr{A}$ if and only if $n \notin K$.
+
+    If the set $\{n \mid U_n \in \mathscr{A}\}$ were decidable then $V_n \in \mathscr{A}$ is algorithmically decidable for a given $n$. Hence, we can decide 
+    if $n \in K$ or not which is contradictory to our assumption that $K$ is undecidable.
+
+    \textbf{Claim: } If it were possible to recognize the property by $U$-numbers, then any two disjoint enumerable sets $P$ and $Q$ could be separated by 
+    a decidable set.
+
+    Choose any two functions $\xi$ and $\eta$ and consider the function:
+    \[
+        V(n,x) = \begin{cases}
+            \xi(x) &\text{ if } n \in P \\
+            \eta(x) &\text{ if } n \in Q \\
+            \text{undefined} &\text{ if } n \notin P \cup Q 
+        \end{cases}
+    \]
+    Note that for any $n$ and $x$ we can wait for $n$ to appear in $P$ or $Q$ and then compute $\xi(x)$ or $\eta(x)$ as needed. So 
+    $V$ is computable. If $n \in P$ then $V_n \equiv \xi$, if $n \in Q$ then $V_n \equiv \eta$. By verifying if $V_n \in \mathscr{A}$ we 
+    could decidably separate $P$ from $Q$ which is a contradiction.
+\end{proof}
+
+\subsection*{New Numbers of Old Functions}
+
+We've seen that the set of numbers of any specific funtion in a a G\"{o}del numbering is undecidable and therefore infinite. We now prove a 
+stronger statement.
+
+\begin{thm}
+    Let $U$ be a universal G\"{o}del function. Then there exists a total binary function $g$ such that for any $i$ the values 
+    $g(i,0), g(i,1), \ldots$ are different $U$-numbers of the function $U_i$.
+\end{thm}
+
+\begin{proof}
+    Let $h$ be an arbitrary function. We show that there exists an algorithm that finds infinitely many different $U$-numbers of the function $h$.
+    Let $P$ be an enumerable undecidable set. Consider a computable function 
+    \[
+        V(n,x) = \begin{cases}
+            h(x) &\text{ if } n \in P \\
+            \text{undefined} &\text{ if } n \notin P 
+        \end{cases}
+    \]
+    There are two functions in play for the sections, namely $h$ and $\zeta$.
+
+    \textbf{Case 1:} $h \neq \zeta$
+
+    Since $U$ is a G\"{o}del universal function, there exists a converter $s$ that transforms $V$-numbers into $U$-numbers. That is 
+    \begin{itemize}
+        \item $n \in P \Rightarrow U_{s(n)} = V_n = h$
+        \item $n \notin P \Rightarrow U_{s(n)} = V_n = \zeta$
+    \end{itemize}
+    It follows that if $p(0), p(1), \ldots$ is a computable enumeration of the set $P$, then all of the $U$-numbers $s(p(0)), s(p(1)), \ldots$ 
+    are numbers of the function $h$.
+
+    \textbf{Claim: } The set $\{s(p(0)), s(p(1)), \ldots\}$ is infinite.
+
+    Suppose that this is not the case, and the set $X =\{s(n) \mid n \in P\}$ is finite. Then $X$ is decidable and 
+    \begin{itemize}
+        \item $n \in P \Rightarrow s(n) \in X$
+        \item $n \notin P$ is a number of $\zeta$ and does not belong to $X$.
+    \end{itemize}
+    One now sees that $n \in P$ if and only if $s(n) \in X$ and the decidability of $X$ impllies the decidability of $P$ which is a 
+    contradiction.
+
+    \textbf{Case 2: } Suppose $h = \zeta$.
+
+    Let $\xi$ be a computable function that is defined at least one point. Consider two enumerable inseparable sets $P$ and $Q$ and the computable 
+    function 
+    \[
+        V(n,x) = \begin{cases}
+            h(x) &\text{ if } n \in P \\
+            \xi(x) &\text{ if } n \in Q \\
+            \text{undefined} &\text{ if } n \notin P \cup Q
+        \end{cases}
+    \]
+
+    Let $s$ be a converter from $V$-numbers to $U$-numbers. Then 
+    \begin{itemize}
+        \item $n \in P \Rightarrow U_{s(n)} = h$
+        \item $n \in Q \Rightarrow U_{s(n)} = \xi$
+        \item $n \notin P \cup Q \Rightarrow U_{s(n)} = \zeta$
+    \end{itemize}
+    As before $s(p(0)), s(p(1)), \ldots$ are numbers of the function $h$.
+
+    \textbf{Claim: } If $h \neq \xi$ then the set $X$ of the numbers $h, s(p(0)), s(p(1)), \ldots$ is undecidable.
+
+    If $X$ were decidable, then we could separate $P$ from $Q$ by namely $P \subset \{n \mid s(n) \in X\}$ and $Q \cap X = \varnothing$.
+    We conclude that we can produce numbers of $h$. If we don't know ehther $h = \zeta$ or not we may run these two 
+    constructions in parallel until one of them produces a new number.
+
+    We now consider the following computable functions:
+
+    \begin{align*}
+        V_1(\sigma(i,n),x) & = \begin{cases}
+            U(i,x) &\text{ if } n \in P \\
+            \text{undefined} &\text{ otherwise}
+        \end{cases} \\
+        V_2(\sigma(i,n),x) &= \begin{cases}
+            U(i,x) &\text{ if } n \in P \\
+            0 &\text{ if } n \in Q \\
+            \text{ undefined } &\text{ if } n \notin P \cup Q
+        \end{cases}
+    \end{align*}
+
+    Since $U$ is a universal G\"{o}del function, we can find computable total functions $s_1$ and $s_2$ such that 
+    \begin{align*}
+        V_1(\sigma(i,n),x) &= U(s_1(\sigma(i,n)),x)
+        V_2(\sigma(i,n),x) &= U(s_2(\sigma(i,x)),x)
+    \end{align*}
+    Let $p$ be a total unary function such that $p = \{p(0), p(1), \ldots\}$. The desired function $g$ is obtained as follows:
+    $g(i,k)$ is the $k^{\text{th}}$ number is the sequence $s_1(\sigma(i,p(0))), s_2(\sigma(i,p(0))), \ldots$.
+\end{proof}
+
+\subsection*{Isomorphism of G\"{o}del Numbers}
+
+\begin{thm}[Rogers]
+    Let $U_1$ and $U_2$ be two G\"{o}del universal funtions for the class of unary computable functions. Then there exist two
+    total mutually inverse computable function $s_{12}$ and $s_{21}$ such that 
+    \begin{align*}
+        U_1(n,x) &= U_2(s_{12}(n),x) \\
+        U_2(n,x) &= U_1(s_{21}(n),x) \\
+    \end{align*}
+    for any $n,x$.
+\end{thm}
+
+\begin{rem}
+    We're saying that any two G\"{o}del numberings differ from each other only by a permutation of the numbers.
+\end{rem}
+\end{document}

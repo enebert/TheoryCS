@@ -1,0 +1,6 @@
+- *Universal, Nondeterministic, and Probabilistic Turing Machines* by Joachim Draeger
+- *Interpretation of NDTM in the definition of NP* - JM Zhou
+- *Nondeterminism as Unbounded Search* in *Understanding Computation: Pillars, Paradigms, Programs* by Rosenberg & Heath
+- *Probabilistic Encryption* by Goldwasser & Micali
+- *$P=BPP$ if $E$ requires exponential circuits: Derandomizing the XOR lemma* by Impagliazzo & Wigderson
+- *In a World of $P=BPP$* by Goldreich

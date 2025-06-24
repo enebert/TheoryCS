@@ -1,6 +1,6 @@
 # TheoryCS
 
-Reading: *Computable Functions* by Shen & Vereshchagin
+#### Reading: *Computable Functions* by Shen & Vereshchagin
 
 * 5/23/25 - Computable functions, enumerable and decidable sets. Basic defintions covered.
 * 5/25/25 - Universal functions and an enumerable set that is undecidable. Many of the proofs follow directly from the definitions. I'm still getting a sense of the threads that run through the concepts. I need to work through Post's construction of an enumerable undecidable set again.
@@ -12,11 +12,35 @@ Reading: *Computable Functions* by Shen & Vereshchagin
 * 6/8/25 - Worked through the basic definitions of $\Sigma_n$ and $\Pi_n$ of the arithmetical hierarchy.
 * 6/9/25 - Worked through notes and got them typed up. Haven't proofread for errors.
 
-I feel like I've gotten out of this book what I can. It's time to take my next steps toward understanding these ideas.
+I feel like I've gotten out of this book what I can. It's time to take my next steps toward understanding these ideas. 
 
-Reading: *Computability: A Mathematical Sketchboook* by Douglas S. Bridges.
+#### Reading: *Computability: A Mathematical Sketchboook* by Douglas S. Bridges.
 
 * 6/11/25 - Read Chapter 1 on Turing Machines
 * 6/12/25 - Worked through chapter 1 carefully. The author gives a very careful definition of a Turing Machine. It is more involved than any other definition for a Turing Machine I've seen previously. The notation is mathematical in nature and he takes care to provide rigor. Some of the notation is highly symbolic. For instance $P_3^3(\delta(q,x)) = D$ for the direction the read / write head goes in the transition. I can see where it could be a lot to interpret for a simple concept. The rigor and the care makes for a very readable setup though engagement by the reader is required.
 * 6/13/25 - Read Chapter 2 on Partial Functions and did some notes. He works through what it means for a partial function to be Turing computable. It was a little hard to decipher a couple of the theorems, but the proofs made it pretty clear what he was trying to accomplish. At the end of the chapter he works through the definitions for what it means to be primitive recursive and partial recursive. There are the ususal two examples with sum and mult. I hope that I can find a source that gives some kind of intuition around why these definitions are the way they are.
 * 6/15/25 - Read Chapter 3 on recursively enumerable sets and did some notes. He ends the chapter with the $s-n-m$ theorem and universal Turing machines. The construction looks very much like G\"{o}del numberings. The details around the Turing Machines in this book are a lot of bookkeeping. I'm not sure how much those details really illuminate the computational aspects of what's going on. It is if nothing else rigorous and careful argumnet. I question if I'd use this book for a course as a part of the material is developed in the exercises. While that is not all bad, it can make it harder to put all of the strands together.
+* 6/17/25 - Chapter 4 introduces the halting problem and a couple of other problems to go down the road of decidability. This chapter ends with a discussion of computable real numbers. Chapter 5 is on Rice's theorem and the Recursion theorem.
+* I've decided to stop reading this book. I'm not getting out of it what I'd hoped and the perspective isn't really what I need right now. It's an interesting book but isn't working out for my context. Updted (6/21): Maybe I should ammend a "for now" to this. I can see what the author is trying to do now that the ideas are starting to coalesce in my brain. There is always a tension between formalism and actually understanding what's going on.
+
+#### Reading: *Handbook of Mathematical Logic* ed. Jon Barwise 
+
+* 6/18/25 - I read Enderton's article *Elements of Recursion Theory*. It brought together everything I've been reading over the past month. The threads of what I've been trying to grasp are finally starting to coalesce. He starts with the idea of what it means to be computable and works his way into recursive and decidable. There is an intuitive notion of a Turing Machine given which leads to the defintion of a recursive partial function on $\mathbb{N}_0$ and then to what it means to be a decidable set. Enderton then describes recursive enumerable (re) and how this relates to being able to verify instead of decide. The rest of the article delves 
+  into degrees of Turing machines and analytic sets and the arithmetic hierarchy. I will definitely be coming back to this as I delve into these things further. I feel like there are some of these concepts that are finally getting ingrained through revisiting them in this article.
+* 6/19/25 - I read Martin Davis' article "Unsolvable Problems". He begins by reviewing the necessary information from Enderton's article and then the Halting problem. Each of the problems that he reviews come down to a variation of the halting problem in some sense. The general approach to showing that something is unsolvable is to show that a certain set property isn't recursive. He then goes into semi-Thue systems and Thue-systems. For those that have seen context-free grammars this is going to seem familiar and CFGs come up later in the expostion. The article finishes with the group word problem and Hilbert's 10th problem. These are problems
+  I've long been interested in, but have not looked into before. This article was a nice introduction to both of those topics and the ideas behind them. 
+
+
+* 6/20/25 - Took a detour to chapter 15 of *Understanding Computation* by Rosenberg and Heath. The chapter is titled *Nondeterminism and Unbounded Search*. They go through the idea of moving through a tree of moves as the computation progresses and that with nondeterminism many branches of this tree may be explored in parallel. They make a point of noticing the difference between exploring one of these trees through a breath first methodology and allowing some branch to be explored much deeper than the others are currently. They end the chapter discussing homomorphisms of languages and the operation that the homomorphism preserves is concatenation. If a NTM accepts a word $w$ from a language then there should be an NTM that accepts the image of $w$ under that homomorphism. The book definitely has a different approach, but I think it did help me gain some intuition.
+
+* 6/21/25 - Starting to dive into the article *Decidable Theories* by Rabin. In the first section, he has introduced the idea of a theory or a problem being decidable. I'm having to go back and remind myself (learn) some of the notation from first order logic.
+* 6/24/25 - I have finished reading the article by Rabin. While I was able to get a sense of the three methods discussed:
+
+1. Elimination of Quantifiers
+2. Using Model Theory
+3. The Use of Semantic Interpretations 
+
+I do not have the background to understand more than a very high level notion of what he's doing. It's interesting that there is a relation to proving the decidability of some of these theories through the use of finite automata and apparently transfinite induction makes an appearance as well. I was glad to read the article to get exposure but actual understanding would require a deeper dive into models and other areas of mathematical logic.
+
+#### Reading: *Computability Theory: An Introduction to Recursion Theory* by Herbert B. Enderton
+

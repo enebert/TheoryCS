@@ -44,3 +44,6 @@ I do not have the background to understand more than a very high level notion of
 
 #### Reading: *Computability Theory: An Introduction to Recursion Theory* by Herbert B. Enderton
 
+* 6/24/25 - Read Chapter 1, Section 1 which is an overview of decidability, semidecidability and then goes into universal Turing machines and the fact that such a machine can simulate all machines. The chapter ends with a discussion of the Chruch-Turing thesis.
+* 6/28/25 - Chapter 1, Section 1 notes. Section 2 on Turing machines. The description of Turing machines is a short overview that culminates in a small discussion of the Busy Beaver contest.
+* 6/29/25 - Finished the rest of Chapter 1. Enderton has short discussions of other notions of computability. He first goes through the definitions of primitive recursive functions. He then adds the search operator and gets to general recursive functions. There is a short discussion at the end of the chapter that describes why and how this terminology came about. Enderton then gets into loop and while languages followed up by register machines. The next topic is Church's formulation of the $\lambda$-Calculus. He then takes a very short detour into a connection with logic and $\Sigma_1$. The chapter ends with revisiting the Church-Turning thesis and the miracle that all of these notions of computability are all the same.

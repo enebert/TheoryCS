@@ -36,9 +36,9 @@ I feel like I've gotten out of this book what I can. It's time to take my next s
 * 6/21/25 - Starting to dive into the article *Decidable Theories* by Rabin. In the first section, he has introduced the idea of a theory or a problem being decidable. I'm having to go back and remind myself (learn) some of the notation from first order logic.
 * 6/24/25 - I have finished reading the article by Rabin. While I was able to get a sense of the three methods discussed:
 
-1. Elimination of Quantifiers
-2. Using Model Theory
-3. The Use of Semantic Interpretations 
+  1. Elimination of Quantifiers
+  2. Using Model Theory
+  3. The Use of Semantic Interpretations 
 
     I do not have the background to understand more than a very high level notion of what he's doing. It's interesting that there is a relation to proving the decidability of some of these theories through the use of finite automata and apparently transfinite induction makes an appearance as well. I was glad to read the article to get exposure but actual understanding would require a deeper dive into models and other areas of mathematical logic.
 

@@ -25,6 +25,8 @@ cabal.project.local~
 
 # Latex
 *.aux
+*.fdb*
+*.fls
 *.log
 *.synctex.gz
 *.tex.backup

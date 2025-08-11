@@ -8,11 +8,19 @@ I expect that the topics that are more related to computability and complexity t
 
 **Current Focus:** Computability Theory
 
+**Primary Texts:** (Fall 2025)
+1. *A Programming Approach to Computability* by AJ Kfoury, Robert N. Moll, Michael A. Arbib
+
+2. *Limits of Computation: From a Programming Perspective* by Bernhard Reus
+
 **Primary Texts:** (Summer 2025)
 
 1. *Computable Functions* by Nikolai Konstantinovich and A. Shen
-2. *Computability: A Mathematical Sketchbook* by Douglas S. Bridges
-3. *Computability Theory: An Introduction to Recursion Theory* by Herbert Enderton
-4. *Introduction to the Theory of Computation* by Michael Sipser
+2. *Handbook of Mathematical Logic* edited by Jon Barwise
+3. *Computability: A Mathematical Sketchbook* by Douglas S. Bridges
+4. *Computability Theory: An Introduction to Recursion Theory* by Herbert Enderton
+5. *Introduction to the Theory of Computation* by Michael Sipser
 
-**Current Log:** [summer2025.md](./summer2025.md) for daily reflections and for detailed information about readings.
+**Current Log:** [Fall 2025](./fall2025.md) for daily reflections and for detailed information about readings.
+
+**Previous Log:** [Summer 2025](./summer2025.md) 

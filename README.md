@@ -10,7 +10,6 @@ I expect that the topics that are more related to computability and complexity t
 
 **Primary Texts:** (Fall 2025)
 1. *A Programming Approach to Computability* by AJ Kfoury, Robert N. Moll, Michael A. Arbib
-
 2. *Limits of Computation: From a Programming Perspective* by Bernhard Reus
 
 **Primary Texts:** (Summer 2025)
@@ -20,6 +19,8 @@ I expect that the topics that are more related to computability and complexity t
 3. *Computability: A Mathematical Sketchbook* by Douglas S. Bridges
 4. *Computability Theory: An Introduction to Recursion Theory* by Herbert Enderton
 5. *Introduction to the Theory of Computation* by Michael Sipser
+
+**Reference List:** [References](./references.md)
 
 **Current Log:** [Fall 2025](./fall2025.md) for daily reflections and for detailed information about readings.
 

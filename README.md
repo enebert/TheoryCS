@@ -11,6 +11,7 @@ I expect that the topics that are more related to computability and complexity t
 **Primary Texts:** (Fall 2025)
 1. *A Programming Approach to Computability* by AJ Kfoury, Robert N. Moll, Michael A. Arbib
 2. *Limits of Computation: From a Programming Perspective* by Bernhard Reus
+3. *Formalizing Computability Theory via Partial Recursive Functions* by Mario Carneiro
 
 **Primary Texts:** (Summer 2025)
 

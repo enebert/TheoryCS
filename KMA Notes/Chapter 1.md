@@ -119,7 +119,7 @@ The function $\chi$ is effectively computable as we can create an algorithm that
 **A:** Consider the Cartesian product $\mathbb{N} \times \mathbb{N}$. The diagonal is the set
 
 $$
-    \Delta = \{(x,x) \mid x \in \mathbb{N}\}
+    \Delta = \\{(x,x) \mid x \in \mathbb{N} \\}
 $$  
 
 In our above argument, we considered the program $P_e$ on input $e$. In terms of the Halting set above this is $(e,e)$ for every index $e$.

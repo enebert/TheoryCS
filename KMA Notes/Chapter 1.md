@@ -26,35 +26,36 @@ It's also a total function. Given a natural number $x$, we can get an output. On
 
 **Q:** What if the domain is just some subset of $\mathbb{N}$?
 
-**A:** We say that $\theta: \mathbb{N}^k \rightarrow \mathbb{N}$ is a partial function if $\text{Dom } \theta$ is some proper subset of $\mathbb{N}$. We allow for the possiblility that $\text{Dom } \theta = \varnothing.$ This is referred to as the empty function.
+**A:** We say that $\theta: \mathbb{N}^k \rightarrow \mathbb{N}$ is a partial function if $\text{Dom } \theta$ is some proper subset of $\mathbb{N}^k$. We allow for the possiblility that $\text{Dom } \theta = \varnothing.$ This is referred to as the empty function.
 
-As with Enderton, the authors use the word *relation* to mean a subset of $\mathbb{N}^k$, the $n$-fold Cartesian product of the natural numbers.
+As with Enderton, the authors use the word *relation* to mean a subset of $\mathbb{N}^k$, the $k$-fold Cartesian product of the natural numbers.
 
-In computability theory, the empty function is one that is not defined for any $x$. One way to look at this to say that the function will not terminate for any $x$. We could do the following in Haskell:
+In computability theory, the empty function is one that is not defined for any $x$. One way to look at this is to say that the function will not terminate for any $x$. We could do the following in Haskell:
 
 ```haskell
     empty x = empty x
 ```
-While this function will never terminate, it certainly is not safe in code. We can use the ```Void``` type from ```Data.Void``` to dod the following:
+While this function will never terminate, it certainly is not safe in code. We can use the ```Void``` type from ```Data.Void``` to do the following:
 ```haskell
     empty:: Void -> Int
     empty x = case of {}
 ```
 We can't ever produce something of ```Void``` type. As the documentation states, "```Void``` values don't logically exist". Documentation is [here](https://hackage.haskell.org/package/base-4.21.0.0/docs/Data-Void.html) if the reader is interested.
 
-We'll use ```empty``` to indicate that we are calling the function with empty domain. This causes problems in real-life as we can't actually call a function with void type, and in the other case the function simply runs in an infinite loop. However, this non-halting behavior is exactly the perspective taken in computability theory.
+We'll use ```empty``` to indicate that we are calling the function with empty domain. This causes problems in real-life as we can't actually call a function with ```Void``` type, and in the other case the function simply runs in an infinite loop. However, this non-halting behavior is exactly the perspective taken in computability theory.
 
 There is a short discussion that there are various models of computation. The models that one might run into are:
 1. Turing Machines
 2. While Loop programs
 3. Register Machines
 4. $\lambda$-Calculus
-5. The theory of generally recursive functions.
+5. The theory of generally recursive partial functions.
 
 Church's Thesis is stated in the following manner:
+
 **Church's Thesis:** The Turing, Kleene, and program specifications of algorithms are each complete.
 
-This isn't a theorem in the sense that it can be proved. It is a statement that comes out of the fact that all of the descriptions of computability that have been presented, have been shown to be equivalent. The Church-Turing thesis is presented in various forms depending on the context of the text. Manin's book on Mathematial logic presents it terms of computable functions and recursive functions. Sipser in his *Theory of Computation* doesn't really give a formal statement but has a figure stating that the intuitive notion of being algorithmic is equivalent to any model of a Turing Machine that we can come up with. 
+This isn't a theorem in the sense that it can be proved. It is a statement that comes out of the fact that all of the descriptions of computability that have been presented, have been shown to be equivalent. The Church-Turing thesis is presented in various forms depending on the context of the text. Manin's book on Mathematial logic presents it in terms of computable functions and recursive functions. Sipser in his *Theory of Computation* doesn't really give a formal statement but has a figure stating that the intuitive notion of being algorithmic is equivalent to any model of a Turing Machine that we can come up with. 
 
 In the second section, their is a discussion of while programs and the Halting Problem. Suppose that $P_1, P_2, \ldots, P_k, \ldots$ is an enumeration of the possible programs. There is a short discussion of encodings and why such a thing should be possible. There are some details such as if a natural number does not represent the encoding of some $P_k$ we take it to be the program that computes the function with empty domain. The position of the program $P_j$ in the master list is said to have *index* $j$. This is of course reminicsent of the index of a Turing Machine for those that have seen such things.
 
@@ -70,7 +71,7 @@ $$
 If such a *characteristic function* were computable then the *Halting Problem* would be deemed *decidable*. The following set
 
 $$
-    K = \{(k,x) \mid P_k \text{ halts on } x\}
+    K = '\{(k,x) \mid P_k \text{ halts on } x '\}
 $$
 
 is not recursive and is a restatement of the above. The idea to showing this is that we can create a contradiction by *diagonalization*.

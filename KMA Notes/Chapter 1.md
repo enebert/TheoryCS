@@ -3,19 +3,23 @@
 ## Motivating Computability
 
 The first chapter runs through a number of basic concepts and attempts to provide motivation via the Halting problem. They start by giving a notion of a computable function. A computable function is one whose output can be obtained by an algorithm. The authors give the example:
+
 $$
     f(x) = \begin{cases}
         1 & \text{ if FLT is true} \\
         0 & \text{ if FLT is false}
     \end{cases}
 $$
+
 where FLT is Fermat's Last Theorem. At the time of the writing, FLT was unsolved. This function is computable by the classical theory even though an answer to it was unknown for quite some time. A different function that makes the same point is the following:
+
 $$
     g(x) = \begin{cases}
         1 & \text{ if Continuum Hypothesis is True} \\
         0 & \text{ if Continuum Hypothesis is False}
     \end{cases}
 $$
+
 We know that CH is either true or false, but we'll more than likely never know which. However, the function $g(x)$ is computable in the classical sense. 
 
 It's also a total function. Given a natural number $x$, we can get an output. One says that a function $t:\mathbb{N} \rightarrow \mathbb{N}$ is a *total function* if the domain of $t$ is $\mathbb{N}$. 
@@ -55,6 +59,7 @@ This isn't a theorem in the sense that it can be proved. It is a statement that 
 In the second section, their is a discussion of while programs and the Halting Problem. Suppose that $P_1, P_2, \ldots, P_k, \ldots$ is an enumeration of the possible programs. There is a short discussion of encodings and why such a thing should be possible. There are some details such as if a natural number does not represent the encoding of some $P_k$ we take it to be the program that computes the function with empty domain. The position of the program $P_j$ in the master list is said to have *index* $j$. This is of course reminicsent of the index of a Turing Machine for those that have seen such things.
 
 The following total function is defined: $f: \mathbb{N} \rightarrow \mathbb{N}$
+
 $$
     f(x) = \begin{cases}
      1 &\text{ if } P_k \text{ halts on input } x \\
@@ -63,14 +68,17 @@ $$
 $$
 
 If such a *characteristic function* were computable then the *Halting Problem* would be deemed *decidable*. The following set
+
 $$
     K = \{(k,x) \mid P_k \text{ halts on } x\}
 $$
+
 is not recursive and is a restatement of the above. The idea to showing this is that we can create a contradiction by *diagonalization*.
 
 The way the author's do this is by discussing a program called "Confuse". I like this approach as it is descriptive regarding what's being accomplished.
 
 Define the following *semicharacteristic function*:
+
 $$
     \psi(x) = \begin{cases} 
         1 &\text{ if } f(x) = 0 \\
@@ -94,21 +102,25 @@ In either case, ```halt``` failed to output the proper result for ```confuse``` 
 **Conclusion:** The Halting Problem is undecidable. 
 
 Let's make another note not discussed in the book. Notice that the Halting Set is *semidecidable* (*recursively enumerable*, *Turing Recognizable*). Define the following semicharacteristic function: $\chi: \mathbb{N}^2 \rightarrow \mathbb{N}$
+
 $$
     \chi(k, x) = \begin{cases}
         1 &\text{ if program } P_k \text{ halts on input } x \\ 
         \text{undefined} & \text{otherwise}
     \end{cases}
 $$
+
 The function $\chi$ is effectively computable as we can create an algorithm that will ignore the output of $P_k$ and output 1 instead.
 
 
 **Q:** Why is this referred to as a diagonalization argument?
 
 **A:** Consider the Cartesian product $\mathbb{N} \times \mathbb{N}$. The diagonal is the set
+
 $$
     \Delta = \{(x,x) \mid x \in \mathbb{N}\}
 $$  
+
 In our above argument, we considered the program $P_e$ on input $e$. In terms of the Halting set above this is $(e,e)$ for every index $e$.
 
 ### In the Exercises

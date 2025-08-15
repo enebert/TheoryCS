@@ -71,7 +71,7 @@ $$
 If such a *characteristic function* were computable then the *Halting Problem* would be deemed *decidable*. The following set
 
 $$
-    K = '\{(k,x) \mid P_k \text{ halts on } x '\}
+    K = \\{(k,x) \mid P_k \text{ halts on } x \\}
 $$
 
 is not recursive and is a restatement of the above. The idea to showing this is that we can create a contradiction by *diagonalization*.

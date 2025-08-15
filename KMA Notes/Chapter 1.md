@@ -26,7 +26,7 @@ It's also a total function. Given a natural number $x$, we can get an output. On
 
 **Q:** What if the domain is just some subset of $\mathbb{N}$?
 
-**A:** We say that $\theta: \mathbb{N}^k \rightarrow \mathbb{N}$ is a partial function if $\operatorname{Dom} \theta$ is some proper subset of $\mathbb{N}$. We allow for the possiblility that $\operatorname \theta = \varnothing.$ This is referred to as the empty function.
+**A:** We say that $\theta: \mathbb{N}^k \rightarrow \mathbb{N}$ is a partial function if $\text{Dom } \theta$ is some proper subset of $\mathbb{N}$. We allow for the possiblility that $\text{Dom } \theta = \varnothing.$ This is referred to as the empty function.
 
 As with Enderton, the authors use the word *relation* to mean a subset of $\mathbb{N}^k$, the $n$-fold Cartesian product of the natural numbers.
 

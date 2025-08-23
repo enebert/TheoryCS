@@ -195,4 +195,35 @@ This is similar to what we did above except we've abstracted out the condtion. A
 
 ### While Loop
 
-I had intended to write some code to emulate a while loop with an arbitrary condition. I have run out of time to do this. Hopefully, I will be able to return and complete this. Hopefully, the above at least convinces one that producing a general while loop using ```State``` pattern is possible.
+Let's now take steps to abstract out the body. We reframe our loop as follows:
+
+```haskell
+    while :: App () -> App Bool -> App ()
+    while body cond = do
+        boolValue <- cond
+        when boolVaule $ do
+            body
+            while body cond
+```
+
+Let's write a body for this loop that will countdown a "Liftoff":
+
+```haskell
+    countDown :: App ()
+    countDown = do
+        time <- get
+        modify (\x -> x-1)
+        liftIO $ putStrLn ("Lift Off in ... ++ show time)
+```
+
+Here's how we would get such a thing to run:
+
+```haskell
+    main = do
+        let stop = 0
+        let start = 5
+
+        evalStateT(while countDown (greaterThan stop)) start
+```
+
+The ```greaterThan``` is analogous to the ```lessThan``` above. To abstract further, I would need to go further down the road of monads. Not only does this demonstrate that the imparative construct of ```while``` can be emulated in Haskell, we readily see the ease at which abstractions can happen by treating code as data. The difficulty with Haskell is getting all of the type information lined up.

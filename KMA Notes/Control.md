@@ -183,7 +183,7 @@ Let's start with a logic condition and build a while loop that will print out a 
             whileLoop msg cond
 ```
 
-This is similar to what we did above except we've abstracted out the condtion. As mentioned above, I had a hard time getting the types set up write to make this happen. The ```modify(+1)``` is what's chaging the state of the condtion so we don't end up entering an infinite loop. We can execute the whileLoop by doing something like:
+This is similar to what we did above except we've abstracted out the condtion. As mentioned above, I had a hard time getting the types set up correctly to make this happen. The ```modify(+1)``` is what's chaging the state of the condtion so we don't end up entering an infinite loop. We can execute the whileLoop by doing something like:
 
 ```haskell
  main = do

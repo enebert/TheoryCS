@@ -43,7 +43,7 @@ $$
     \end{cases}
 $$
 
-Further, we can view $X \neq Y$ as a boolean test as it is equivalent to $(X < Y) \wedge (X > Y)$. The negation of this is $X = Y$. We take both of these to be composite tests. The atomic tests then are $>$ and $<$.
+Further, we can view $X \neq Y$ as a boolean test as it is equivalent to $(X < Y) \vee (X > Y)$. The negation of this is $X = Y$. We take both of these to be composite tests. The atomic tests then are $>$ and $<$.
 
 Now suppose that $C$ is atomic of the form $X < Y$. Take $E_C = (Y \dot{-} X) \dot{-} \text{pred }(Y \dot{-} X)$. Notice that if $X < Y$ then $Y \dot{-} X$ is positive so $E_C=1$. OTOH if $X > Y$ then $Y \dot{-} X$ is zero so both terms are 0. We can do something similar for $>$.
 
